@@ -35,7 +35,7 @@ exports.getDetails = (id, callback) => {
 }
 
 exports.deleteOneTip = (id, callback) => {
-    database.query(`DELETE FROM tips WHERE id = ?;`, [id], (error, result) => {
+    database.query(`DELETE FROM tips WHERE id_tip = ?;`, [id], (error, result) => {
       if (error) {
         console.log("error: ", error);
         callback(error, null);
@@ -46,7 +46,7 @@ exports.deleteOneTip = (id, callback) => {
   }
 
 exports.getRecentTips = (callback) => {
-    database.query(`SELECT * FROM tips ORDER BY publish DESC LIMIT 3;`, (error, result) => {
+    database.query(`SELECT * FROM tips ORDER BY id_tip DESC LIMIT 3;`, (error, result) => {
         if (error) {
             console.log("error: ", error);
             callback(error, null);
@@ -76,6 +76,17 @@ exports.country = (country, type, callback) => {
             callback(error, null);
             return;
         } 
+        callback(null, result);
+    })
+}
+
+exports.getMyTips = (user_id, callback) => {
+    database.query(`SELECT * FROM tips WHERE user_id = ?;`, [user_id], (error, result) => {
+        if (error) {
+            console.log("error :", error);
+            callback(error, null);
+            return;
+        }
         callback(null, result);
     })
 }

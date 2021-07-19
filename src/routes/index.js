@@ -10,6 +10,8 @@ router.get("/", controller.home);
 router.get("/tips/:id_tip", tipsController.tipDetails);
 router.get("/search", tipsController.search);
 router.get("/recent_tips", tipsController.recentTips);
+router.get("/mytips", isAuth, tipsController.myTips);
+router.get("/profile", isAuth, controller.profile);
 
 //Post
 router.post("/signup", controller.newAccount);

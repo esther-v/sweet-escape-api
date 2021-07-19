@@ -17,7 +17,7 @@ app.use(session({
 })
 );
 app.use(json());
-app.use(morgan());
+app.use(morgan('dev'));
 app.use("/api", router);
 
 app.listen(process.env.APP_PORT, () => {

@@ -16,9 +16,7 @@ exports.newAccount = (request, response) => {
       } else if (result.length > 0) {
           response.status(409).json({message: "Un utilisateur avec le même email existe déjà" })                     
           } else {
-              if (typeof firstname !== "string" ||typeof firstname !== "string" ) {
-              response.status(400).json({message: "Le champ firstname doit être une chaîne de caractères"})            
-              } else if ( !firstname || !email || !password || !birthday || !country) {
+              if ( !firstname || !email || !password || !birthday || !country) {
                   response.status(400).json({message: "Un champ obligatoire n'est pas renseigné"})
               } else {
               const saltRounds = 10;
@@ -97,3 +95,14 @@ exports.login = async (request, response) => {
       });
   }
 } 
+
+exports.profile = (request, response) => {
+    const { userId } = request.user;
+    User.getProfile(userId, (error, result)=> {
+        if (error) {
+            response.send(error.message);
+        } else {
+            response.status(200).json({message: "Success", result: result})
+        }
+    })
+}

@@ -14,7 +14,6 @@ const isAuth = (request, response, next) => {
             else {
                 const {firstname, email, country, userId, exp} = user;
                 if (Date.now()/1000 >= exp) {
-                    request.user= {role: ""};
                     next()
                 }
                 request.user = {firstname, email, country, userId};

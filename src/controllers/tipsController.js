@@ -1,12 +1,13 @@
 const Tips = require("../models/tips");
 
 exports.addOne = (request, response) => {
-    const { id } = request.user;
-    const {place_name, description, city, country, publish, type, user_id} = request.body;
-    if (!place_name || !description || !city || !country || !publish || !type|| !user_id ) {
-        response.status(400).json({message: "Missing input"})
+    const { userId } = request.user;
+    const {place_name, description, city, country, type} = request.body;
+    console.log(userId);
+    if (!place_name || !description || !city || !country || !type ) {
+        return response.status(400).json({message: "Missing input"})
     }
-    Tips.createTip(id, request.body, (error, result) => {
+    Tips.createTip(userId, request.body, (error, result) => {
         if (error) {
             response.send (error.message);
         }
@@ -25,8 +26,7 @@ exports.updateTip = (request, response) => {
             else {
                 response.status(200).json({message: "modification ok", result});
             }
-        })
-    
+        }) 
 }
 
 exports.tipDetails = (request, response) => {
@@ -39,7 +39,6 @@ exports.tipDetails = (request, response) => {
             response.status(200).json({"tip": tip_details});
         }
     })
-
 }
 
 exports.deleteTip = (request, response) => {
@@ -102,4 +101,21 @@ exports.search = (request, response) => {
             })
         }
       
+}
+
+exports.myTips = (request, response) => {
+    const { userId } = request.user;
+    Tips.getMyTips(userId, (error, result) => {
+        if (error) {
+            response.send(error.message)
+        }
+        else {
+            if (result.length === 0) {
+                response.status(200).json({message: "Vous n'avez pas encore posté de bons plans."})
+            }
+            else {
+                response.status(200).json({result: result})
+            }
+        }
+    })
 }
