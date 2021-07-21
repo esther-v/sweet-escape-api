@@ -22,7 +22,7 @@ router.post("/tips", isAuth, tipsController.addOne);
 router.patch("/tips/:id_tip", isAuth, tipsController.updateTip);
 
 // DELETE
-router.delete('/tips/:id_tip', isAuth, tipsController.deleteTip);
+router.delete("/tips/:id_tip", isAuth, tipsController.deleteTip);
 
 // Erreur 404
 router.use("*", (request, response) => {
