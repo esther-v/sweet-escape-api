@@ -46,7 +46,7 @@ exports.deleteOneTip = (id, callback) => {
   }
 
 exports.getRecentTips = (callback) => {
-    database.query(`SELECT * FROM tips ORDER BY id_tip DESC LIMIT 3;`, (error, result) => {
+    database.query(`SELECT users.firstname,tips.place_name, tips.description, tips.publish, tips.city, tips.country, tips.type, DATE_FORMAT(publish, "%d  %M  %Y" )AS "date" FROM tips INNER JOIN users ON users.id_user = tips.user_id ORDER BY id_tip DESC LIMIT 3;`, (error, result) => {
         if (error) {
             console.log("error: ", error);
             callback(error, null);

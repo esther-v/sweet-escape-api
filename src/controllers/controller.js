@@ -13,9 +13,11 @@ exports.newAccount = (request, response) => {
     
       if (error) {
       response.send(error.message);
-      } else if (result.length > 0) {
-          response.status(409).json({message: "Un utilisateur avec le même email existe déjà" })                     
-          } else {
+      } 
+      else if (result.length > 0) {
+          response.status(400).json({message: "Un utilisateur avec le même email existe déjà" })                     
+      } 
+      else {
               if ( !firstname || !email || !password || !birthday || !country) {
                   response.status(400).json({message: "Un champ obligatoire n'est pas renseigné"})
               } else {

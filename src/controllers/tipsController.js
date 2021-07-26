@@ -65,8 +65,6 @@ exports.recentTips = (request, response) => {
 }
 
 exports.search = (request, response) => {
-    console.log('called');
-
         const city = request.query.city;
         const country = request.query.country;
         const type = request.query.type;
@@ -77,7 +75,7 @@ exports.search = (request, response) => {
                 }
                 else {
                     if (result.length === 0) {
-                        response.status(200).json({message: "Il n'y a aucun bon plan pour ce lieu et/ou ce type"});
+                        response.status(404).json({message: "Il n'y a aucun bon plan pour ce lieu et/ou ce type"});
                     }
                     else {
                         response.status(200).json({result: result})
