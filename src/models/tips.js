@@ -13,7 +13,7 @@ exports.createTip = (user_id, tip, callback) => {
 }
 
 exports.modifyTip = (id, infos, callback) => {
-    database.query(`UPDATE places SET place_name="${infos.place_name}", description="${infos.description}" WHERE id_tip=${id};`, (error, result) => {
+    database.query(`UPDATE tips SET place_name="${infos.updatedPlace}", description="${infos.updatedDescription}" WHERE id_tip=${id};`, (error, result) => {
         if (error) {
             console.log("error: ", error);
             callback(error, null);

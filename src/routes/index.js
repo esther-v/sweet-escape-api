@@ -18,8 +18,8 @@ router.post("/signup", controller.newAccount);
 router.post("/login", controller.login);
 router.post("/tips", isAuth, tipsController.addOne);
 
-//Patch
-router.patch("/tips/:id_tip", isAuth, tipsController.updateTip);
+//Put
+router.put("/tips/:id_tip", isAuth, tipsController.updateTip);
 
 // DELETE
 router.delete("/tips/:id_tip", isAuth, tipsController.deleteTip);

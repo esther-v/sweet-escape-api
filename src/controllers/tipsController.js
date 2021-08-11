@@ -19,6 +19,7 @@ exports.addOne = (request, response) => {
 
 exports.updateTip = (request, response) => {
     const {id_tip} = request.params;
+    console.log(request.body);
         Tips.modifyTip(id_tip, request.body, (error, result) => {
             if (error) {
                 response.send (error.message);
@@ -109,7 +110,7 @@ exports.myTips = (request, response) => {
         }
         else {
             if (result.length === 0) {
-                response.status(200).json({message: "Vous n'avez pas encore posté de bons plans."})
+                response.status(404).json({message: "Vous n'avez pas encore posté de bons plans."})
             }
             else {
                 response.status(200).json({result: result})
