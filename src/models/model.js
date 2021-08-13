@@ -24,7 +24,7 @@ exports.createAccount = (requestBody, encryptedPassword, callback) => {
 }
 
 exports.getProfile = (id_user, callback) => {
-    database.query(`SELECT * FROM users WHERE id_user = ?;`, [id_user], (error, result) => {
+    database.query(`SELECT firstname, email, birthday, country_user, description FROM users WHERE id_user = ?;`, [id_user], (error, result) => {
         if (error) {
             callback(error, null);
             return;

@@ -21,5 +21,5 @@ app.use(morgan('dev'));
 app.use("/api", router);
 
 app.listen(process.env.APP_PORT, () => {
-    console.log("Server running at port 8080")
+    console.log("Server running at port 8181")
 });
