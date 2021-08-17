@@ -12,8 +12,8 @@ exports.getUserByEmail = (requestBody, callback) => {
 }
 
 exports.createAccount = (requestBody, encryptedPassword, callback) => {
-    database.query(`INSERT INTO users(firstname, email, password, birthday, country, description)
-    values("${requestBody.firstname}", "${requestBody.email}", "${encryptedPassword}", "${requestBody.birthday}", "${requestBody.country}", "${requestBody.description}");`, (error, result) => {
+    database.query(`INSERT INTO users(firstname, email, password, birthday, country_user, description)
+    values("${requestBody.firstname}", "${requestBody.email}", "${encryptedPassword}", "${requestBody.birthday}", "${requestBody.country_user}", "${requestBody.description}");`, (error, result) => {
         if (error){
             callback(error, null);
             return;

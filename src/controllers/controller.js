@@ -9,7 +9,7 @@ exports.home = (request, response) => {
 
 exports.newAccount = (request, response) => {
   User.getUserByEmail(request.body, (error, result) => {
-    const { firstname, email, password, birthday, country, description } = request.body;
+    const { firstname, email, password, birthday, country_user, description } = request.body;
     
       if (error) {
       response.send(error.message);
@@ -18,7 +18,7 @@ exports.newAccount = (request, response) => {
           response.status(400).json({message: "Un utilisateur avec le même email existe déjà" })                     
       } 
       else {
-              if ( !firstname || !email || !password || !birthday || !country) {
+              if ( !firstname || !email || !password || !birthday || !country_user) {
                   response.status(400).json({message: "Un champ obligatoire n'est pas renseigné"})
               } else {
               const saltRounds = 10;
