@@ -57,7 +57,7 @@ exports.getRecentTips = (callback) => {
 }
 
 exports.city = (city, type, callback) => {
-    let requete = type ? `SELECT * FROM tips WHERE city = ? AND type = ?;` : `SELECT * FROM tips WHERE city = ?;`
+    let requete = type ? `SELECT users.firstname, users.country_user, tips.place_name, tips.description, tips.publish, tips.city, tips.country, tips.type, DATE_FORMAT(publish, "%d  %M  %Y" )AS "date" FROM tips INNER JOIN users ON users.id_user = tips.user_id WHERE city = ? AND type = ?;` : `SELECT users.firstname, users.country_user, tips.place_name, tips.description, tips.publish, tips.city, tips.country, tips.type, DATE_FORMAT(publish, "%d  %M  %Y" )AS "date" FROM tips INNER JOIN users ON users.id_user = tips.user_id WHERE city = ?;`
     database.query(requete, [city, type], (error, result) => {
         if (error) {
             console.log("error :", error);
