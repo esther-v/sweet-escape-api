@@ -12,11 +12,11 @@ const isAuth = (request, response, next) => {
                 response.send(error.message);
             }
             else {
-                const {firstname, email, country, userId, exp} = user;
+                const {firstname, email, country_user, userId, exp} = user;
                 if (Date.now()/1000 >= exp) {
                     next()
                 }
-                request.user = {firstname, email, country, userId};
+                request.user = {firstname, email, country_user, userId};
                 next();
             }
         })

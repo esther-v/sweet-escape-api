@@ -43,7 +43,7 @@ exports.deleteOneTip = (id, callback) => {
       }
       callback(null, result);
     })
-  }
+}
 
 exports.getRecentTips = (callback) => {
     database.query(`SELECT users.firstname, users.country_user, tips.place_name, tips.description, tips.publish, tips.city, tips.country, tips.type, DATE_FORMAT(publish, "%d  %M  %Y" )AS "date" FROM tips INNER JOIN users ON users.id_user = tips.user_id ORDER BY id_tip DESC LIMIT 3;`, (error, result) => {
@@ -81,7 +81,7 @@ exports.country = (country, type, callback) => {
 }
 
 exports.getMyTips = (user_id, callback) => {
-    database.query(`SELECT * FROM tips WHERE user_id = ?;`, [user_id], (error, result) => {
+    database.query(`SELECT tips.id_tip, tips.place_name, tips.description, tips.publish, tips.city, tips.country, tips.type, DATE_FORMAT(publish, "%d  %M  %Y" )AS "date" FROM tips WHERE user_id = ?;`, [user_id], (error, result) => {
         if (error) {
             console.log("error :", error);
             callback(error, null);

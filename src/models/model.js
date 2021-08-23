@@ -2,7 +2,6 @@ const database = require('../config/database');
 
 exports.getUserByEmail = (requestBody, callback) => {
     database.query("SELECT * FROM users WHERE email = ?;", [requestBody.email], (error, result) => {
-
         if (error) {
             callback(error, null);
             return;
@@ -12,13 +11,11 @@ exports.getUserByEmail = (requestBody, callback) => {
 }
 
 exports.createAccount = (requestBody, encryptedPassword, callback) => {
-    database.query(`INSERT INTO users(firstname, email, password, birthday, country_user, description)
-    values("${requestBody.firstname}", "${requestBody.email}", "${encryptedPassword}", "${requestBody.birthday}", "${requestBody.country_user}", "${requestBody.description}");`, (error, result) => {
+    database.query(`INSERT INTO users(firstname, email, password, birthday, country_user, description) VALUES(?, ?, ?, ?, ?, ?);`, [requestBody.firstname, requestBody.email, encryptedPassword, requestBody.birthday, requestBody.country_user, requestBody.description], (error, result) => {
         if (error){
             callback(error, null);
             return;
         }
-
         callback(null, result);
     });
 }

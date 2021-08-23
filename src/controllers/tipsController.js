@@ -7,6 +7,7 @@ exports.addOne = (request, response) => {
     if (!place_name || !description || !city || !country || !type ) {
         return response.status(400).json({message: "Missing input"})
     }
+   
     Tips.createTip(userId, request.body, (error, result) => {
         if (error) {
             response.send (error.message);
@@ -47,8 +48,7 @@ exports.deleteTip = (request, response) => {
     Tips.deleteOneTip(id_tip,  (error, result) => {
         if (error) {
         response.send (error.message);
-        }
-        else {
+        } else {
         response.status(200).json({message: "suppression ", result});
         }
     })     
@@ -66,39 +66,39 @@ exports.recentTips = (request, response) => {
 }
 
 exports.search = (request, response) => {
-        const city = request.query.city;
-        const country = request.query.country;
-        const type = request.query.type;
-        if(request.query.city) {
-            Tips.city(city, type, (error, result) => {
-                if (error) {
-                    response.send(error.message)
+    const city = request.query.city;
+    const country = request.query.country;
+    const type = request.query.type;
+    if(request.query.city) {
+        Tips.city(city, type, (error, result) => {
+            if (error) {
+                response.send(error.message)
+            }
+            else {
+                if (result.length === 0) {
+                    response.status(404).json({message: "Il n'y a aucun bon plan pour ce lieu et/ou ce type"});
                 }
                 else {
-                    if (result.length === 0) {
-                        response.status(404).json({message: "Il n'y a aucun bon plan pour ce lieu et/ou ce type"});
-                    }
-                    else {
-                        response.status(200).json({result: result})
-                    }
+                    response.status(200).json({result: result})
                 }
-            })
-        }
-        else if(request.query.country) {
-            Tips.country(country, type, (error, result) => {
-                if (error) {
-                    response.send(error.message)
+            }
+        })
+    }
+    else if(request.query.country) {
+        Tips.country(country, type, (error, result) => {
+            if (error) {
+                response.send(error.message)
+            }
+            else {
+                if (result.length === 0) {
+                    response.status(200).json({message: "Il n'y a aucun bon plan pour ce lieu et/ou ce type"});
                 }
                 else {
-                    if (result.length === 0) {
-                        response.status(200).json({message: "Il n'y a aucun bon plan pour ce lieu et/ou ce type"});
-                    }
-                    else {
-                        response.status(200).json({result: result})
-                    }
+                    response.status(200).json({result: result})
                 }
-            })
-        }
+            }
+        })
+    }
       
 }
 
